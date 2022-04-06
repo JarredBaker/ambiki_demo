@@ -1,4 +1,4 @@
-import * as sessionCalendar from "@/fakeData/sessionCalendar.json";
+import sessionCalendar from "@/fakeData/sessionCalendar.json";
 
 /**
  *
@@ -19,6 +19,7 @@ export const fetchSessions = () => {
     if (
       Object.prototype.hasOwnProperty.call(sessionCalendar[x], "session_DT")
     ) {
+
       sessionCalendar[x].session_DT = new Date().addHours(hourIncrease++);
     }
   }

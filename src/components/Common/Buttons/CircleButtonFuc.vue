@@ -1,23 +1,27 @@
 <script>
 export default {
-    name: 'NavItem',
+    name: 'CircleButton',
     props: {
-        to: String
+        act: Function,
+        backgroundColor: String
     }
 }
 </script>
 
 <template>
-    <router-link :to="to">
-        <div class="item-circle">
+    <div class="item-circle" :style="{ 'background-color': backgroundColor }">
+        <button @click="act">
             <slot name="icon"></slot>
-        </div>
-    </router-link>
+        </button>
+    </div>
 </template> 
 
 <style scoped>
+button {
+    border: none;
+    background-color: Transparent;
+}
 .item-circle {
-    background-color: var(--background-color-secondary);
     width: 60px;
     height: 60px;
     border-radius: 60px;
@@ -27,6 +31,7 @@ export default {
     align-content: center;
     align-items: center;
     box-shadow: 0 0 10px 1px var(--highlight-color);
+    margin-right: 10px;
 }
 
 i {

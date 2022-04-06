@@ -51,7 +51,10 @@ p {
   background-color: var(--background-color-primary);
   min-height: 100vh;
   height: auto;
-  width: calc(100vh - var(--navbar-width));
+  min-width: calc(100vw - var(--navbar-width));
+  max-width: calc(100vw - var(--navbar-width));
+  right: 0px;
+  margin-left: var(--navbar-width);
   display: flex;
 }
 
@@ -61,17 +64,10 @@ p {
   text-align: left;
 }
 
-.headings {
-  color: var(--text-primary-color);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 .app-con {
   min-height: max-content;
-  /* height: auto; */
   width: calc(100vw - var(--navbar-width));
   background-color: var(--background-color-primary);
-  padding-left: var(--navbar-width);
 }
 
 .nav-bar {
@@ -94,32 +90,3 @@ p {
   background-color: var(--background-color-secondary);
 }
 </style>
-
-<!-- <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
-</template>
-
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style> -->

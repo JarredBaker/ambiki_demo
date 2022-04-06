@@ -74,7 +74,7 @@ export default {
 }
 
 .spec-height {
-  min-height: 70px
+  min-height: 70px;
 }
 
 .vc-header {
@@ -135,53 +135,3 @@ export default {
   }
 }
 </style>
-
-<!-- <template>
-  <div>
-    <b-calendar
-      class="border rounded h-100"
-      selected-variant="success"
-      today-variant="info"
-      nav-button-variant="primary"
-      v-model="value"
-      :date-disabled-fn="dateDisabled"
-      block="true"
-      :locale="locale"
-      :hide-header="hideHeader"
-      @context="onContext"
-      dark
-    ></b-calendar>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'DashboardCalendar',
-  data() {
-    return {
-      value: '',
-      context: null,
-      showDecadeNav: false,
-      hideHeader: true,
-      locale: 'en-US',
-    }
-  },
-  methods: {
-    dateDisabled(ymd, date) {
-      // Disable weekends (Sunday = `0`, Saturday = `6`) and
-      // disable days that fall on the 13th of the month
-      const weekday = date.getDay()
-      const day = date.getDate()
-      // Return `true` if the date should be disabled
-      return weekday === 0 || weekday === 6 || day === 13
-    }
-  }
-}
-</script>
-
-<style scoped>
-.calender-internal {
-  height: 70vh;
-}
-</style>
--->

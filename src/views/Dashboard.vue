@@ -1,18 +1,27 @@
-<script setup>
+<script>
 import PatientCardLargeVue from '../components/Dashboard/PatientCardLarge.vue';
 import PatientCardSmall from '../components/Dashboard/PatientCardSmall.vue';
 import DashboardCalendarVue from '@/components/Dashboard/DashboardCalendar.vue';
 import BarChart from '@/components/Charts/BarChart.vue';
-import ProfileButton from '@/components/Common/Buttons/ProfileButton.vue';
+import CircleButton from '@/components/Common/Buttons/CircleButton.vue';
 
 /*     Dashoard API     */
 import { fetchSessions } from '@/api/dashboardAPI';
-const sessions = fetchSessions();
-
-console.log("THE SESSIONS: " + JSON.stringify(sessions));
 
 export default {
-  components: { PatientCardLargeVue, PatientCardSmall, DashboardCalendarVue, BarChart, ProfileButton },
+  name: 'DashboardView',
+  setup() {
+    const sessions = fetchSessions();
+    const nextSession = sessions[0];
+    const comingUpSessions = sessions.slice(1, sessions.length);
+
+    return {
+      sessions,
+      nextSession,
+      comingUpSessions
+    }
+  },
+  components: { PatientCardLargeVue, PatientCardSmall, DashboardCalendarVue, BarChart, CircleButton },
 };
 </script>
 
@@ -33,23 +42,34 @@ export default {
             <BarChart />
           </div>
           <div class="mini-nav-con">
-            <ProfileButton to="/">
-              <template #icon><b-icon icon="person-fill" style="width: 40px; height: 40px;"></b-icon></template>
-            </ProfileButton>
+            <CircleButton to="/">
+              <template #icon>
+                <b-icon icon="person-fill" style="width: 40px; height: 40px;"></b-icon>
+              </template>
+            </CircleButton>
+            <CircleButton to="/">
+              <template #icon>
+                <b-icon icon="plus" style="width: 40px; height: 40px;"></b-icon>
+              </template>
+            </CircleButton>
           </div>
         </div>
       </div>
 
       <div class="row-dashboard">
         <div class="column-left-bottom">
-          <h3 class="headings">Next Patient</h3>
+          <h5 class="headings">Next Patient</h5>
           <PatientCardLargeVue>
-            <template #name>James Cook</template>
+            <template #name>{{ nextSession.name }}</template>
+            <template
+              #time
+            >{{ nextSession.session_DT.getHours() }}:{{ nextSession.session_DT.getMinutes() }}</template>
           </PatientCardLargeVue>
 
-          <h3 class="headings">Coming up:</h3>
-          <PatientCardSmall>
-            <template #name>Sam</template>
+          <h5 class="headings">Coming up:</h5>
+          <PatientCardSmall v-for="client in comingUpSessions" :key="client.id">
+            <template #name>{{ client.name }}</template>
+            <template #time>{{ client.session_DT.getHours() }}:{{ client.session_DT.getMinutes() }}</template>
           </PatientCardSmall>
         </div>
 
@@ -64,6 +84,11 @@ export default {
 </template>
 
 <style scoped>
+.headings {
+  color: var(--text-primary-color);
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 10px;
+}
 
 .mini-nav-con {
   width: 100%;
@@ -105,8 +130,15 @@ export default {
 .column-left-bottom {
   width: 30vw;
   min-height: 70vh;
+  max-height: 70vh;
   background-color: var(--background-color-primary);
   padding-left: 40px;
+  overflow: scroll;
+  padding-bottom: 20px;
+}
+
+.column-left-bottom::-webkit-scrollbar {
+  display: none;
 }
 
 .row-dashboard {
